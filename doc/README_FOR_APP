@@ -1,0 +1,12 @@
+Use this README file to introduce your application and point to useful places in the API for learning more.
+Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
+
+b.keys.each { |key|
+	obj = b[key]
+	obj.data['created_at'] = Time.at obj.data['created_at']
+	obj.store
+}
+
+ mr.map("Ripple.filterByConditions",
+  :arg => {:tags => {:includes => "riak"},
+  :height => {'>'=> 123}}).run

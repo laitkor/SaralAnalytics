@@ -1,0 +1,165 @@
+/*
+  * Place all the styles related to the Admin controller here.
+  * They will automatically be included in application.css.
+  * You can use Sass (SCSS) here: http://sass-lang.com/
+*/
+
+.map{
+  width: 35%;
+  position: absolute;
+  top: 2%;
+  right:25%;
+}
+
+.heading{
+  font-family: 'Exo 2', sans-serif;
+  font-size: 16px;
+  font-weight:bold;
+  margin-bottom: 2%;
+}
+
+admin_dashboard > table > tbody > tr > th {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 13px;
+  text-align: left;
+  line-height: 18px;
+  font-weight: bold;
+}
+
+admin_dashboard table td {
+  font-weight: normal;
+  text-align: left;
+}
+
+.visitors_spinner{
+  position: absolute;
+  height: 2%;
+  width: 3%;
+  left: 36%;
+  top: 25%;
+}
+
+.audience_overview_spinner{
+  position: absolute;
+  height: 2%;
+  width: 3%;
+  left: 78%;
+  top: 25%;
+}
+
+.browsers_spinner{
+  position: absolute;
+  height: 2%;
+  width: 3%;
+  left: 30%;
+  top: 75%;
+}
+
+.os_spinner{
+  position: absolute;
+  height: 2%;
+  width: 3%;
+  left: 57%;
+  top: 75%;
+}
+
+
+.funnel_spinner{
+  position: absolute;
+  height: 9%;
+  width: 3%;
+  left: 56%;
+  top: 60%;
+}
+
+.country_block, .city_block{
+ display: none;
+}
+
+.operating_system_block, .platform_block, .screen_resolution_block{
+ display: none;
+}
+
+.mobile_browser_block, .mobile_platform_block,.mobile_operating_system_block, .mobile_screen_resolution_block{
+ display: none;
+}
+
+
+.select, .chart, .period{
+  width:20%;
+}
+
+.select, .chart, .period{
+  float: right;
+  margin-right: 1%;
+}
+
+.select, .input{
+  width:20%;
+}
+
+.highcharts-container{
+  float: left;
+}
+
+
+  .country_heading{
+    padding: 2px 0px; 
+    border-bottom:#ccc 1px solid;
+    background: #666666;
+    border-radius:5px;
+    margin-bottom: 12px;
+  }
+  .country_name{
+    width: 118px;
+    display:block;
+    font-size: 12px;
+    margin-right:5px;
+    margin-left:5px;
+    float:left;
+    color:#fff;
+  }
+  .country_visit{
+    width: 50px;
+    display:block;
+    font-size: 12px;
+    margin-right:5px; 
+    float:left;
+    color:#fff;
+  }
+
+  .country_percent_visit{
+    width: 71px; 
+    display:block;
+    font-size: 12px;
+    float:left;
+    color:#fff;
+  }
+  .country_data{
+    padding: 2px 0px; 
+    border-bottom:#ccc 1px solid;
+  }
+
+  .name{
+    width: 118px; 
+    display:block;
+    font-size: 12px;
+    margin-right:5px;
+    margin-left:5px; 
+    float:left;
+  }
+
+  .visit{
+    width: 50px; 
+    display:block;
+    font-size: 12px;
+    margin-right:5px; 
+    float:left;
+  } 
+
+  .percent{
+    width: 71px; 
+    display:block;
+    font-size: 12px;
+    float:left;
+  }

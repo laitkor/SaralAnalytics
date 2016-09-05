@@ -1,0 +1,324 @@
+= javascript_include_tag 'highcharts.js'
+.main_header_2
+  .main_w.main_work_area.no_border
+    .Main_heading
+      .pading_15
+        %h3.main_heading.i_32_dashboard Dashboard
+  .clr
+.main_w.main_work_area{:style => "background-color:#ffffff; margin-bottom:35px;"}
+  = render "layouts/side_panel"
+  .work_area
+    .pading_10
+      .clr
+      .grid_5
+        .box_header
+          %h4.box_header_title.setting_ Visitors
+          .right_flot{:style => "font-weight: bold;"}
+            = 11.months.ago.to_date.strftime("%b %d, %Y") +" - "+ Date.today.strftime("%b %d, %Y")
+        .box_contents
+          %span.label{:style => "font-size:11px;height:32px;display:block;"} 
+            Unique Visitors:
+            = @browser_history
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            Total Visitors:
+            = @browser_detail
+          %div{:id=>"comparison_chart", :style=>"width:100%; height:8%;"}
+          %br/
+          &nbsp;
+      .grid_5
+        .box_header
+          %h4.box_header_title.setting_ Audience Overview
+          .right_flot{:style => "font-weight: bold;", :id=>"daily_data"}
+            = 21.days.ago.to_date.strftime("%b %d, %Y") +" - "+ Date.today.strftime("%b %d, %Y")
+          .right_flot{:style => "font-weight: bold; display:none", :id=>"monthly_data"}
+            = 11.months.ago.to_date.strftime("%b %d, %Y") +" - "+ Date.today.strftime("%b %d, %Y")
+        .grid_4
+          = select_tag "Periods", options_for_select([ "Day", "Month"], "Day"), :selected => "selected", :class => "period" , :onchange => "chart()" 
+          = select_tag "Charts", options_for_select([ "Line", "Bar", "Area"], "Line"), :selected => "selected", :class => "chart" , :onchange => "chart()"
+        .box_contents
+          %div{:id=>"details_chart", :style=>"width:100%; height:8%;"}
+          &nbsp;  
+      .clr
+      .grid_6
+        .box_header
+          %h4.box_header_title.setting_ Browser
+        .clr
+        .grid_6
+        .box_contents
+          %div{:id=>"browsers_chart", :style=>"width:100%; height:8%;"}
+          &nbsp;  
+      .grid_6
+        .box_header
+          %h4.box_header_title.setting_ Operating System
+        .clr
+        .grid_6
+        .box_contents
+          %div{:id=>"operating_systems_chart", :style=>"width:100%; height:8%;"}
+          &nbsp; 
+      .grid_6
+        .box_header
+          %h4.box_header_title.setting_ Country/Territory
+          .clr
+        .box_contents{:style=>"height:422px;"}
+          .country_heading
+            %span.country_name Country
+            %span.country_visit Visits
+            %span.country_percent_visit %Visits
+            %div{:style=>"clear:both;"}
+          -if !(country_count.nil?)
+            - country_count.each_pair do |key, value|
+              .country_data
+                %span.name 
+                  -if(key.present? && key!="(unknown country?)")
+                    = key
+                  -else
+                    Other
+                %span.visit
+                  = value
+                %span.percent
+                  = number_to_percentage(value.to_f/@browser_detail.to_f * 100, :precision => 2)
+                %div{:style=>"clear:both;"}
+      .clr
+  .clr
+
+  .visitors_spinner
+    = image_tag "spinner.gif"
+
+  .audience_overview_spinner
+    = image_tag "spinner.gif"
+
+  .browsers_spinner
+    = image_tag "spinner.gif"
+
+  .os_spinner
+    = image_tag "spinner.gif"
+
+
+
+
+:css
+  input[type="checkbox"], [type="radio"]{
+    width:5%;
+  }
+ 
+
+:javascript
+  var make_array = function (obj) {
+    var result = [];
+    if(obj.length){
+      for(var i = 0; i < obj.length; i++){
+        result.push(obj[i]);
+      }
+    }
+    else{
+      for(var j in obj){
+        result.push([j, obj[j]]);
+      }
+    }
+    return result;
+  };
+
+  $('.visitors_spinner').show();
+
+  // Returns array of @num_months from @start_date
+  // Example: get_month_array(5, <June>)
+  // => ['Jun', 'Jul', 'Aug', 'Sep', 'Oct']
+  var get_month_array = function(num_months, start_date){
+
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      result = [], curr_mnth = start_date.getMonth();
+
+    // If today is February, we need to start from March last year
+    curr_mnth = (curr_mnth + 1) % 12;
+
+    for(var i = 0; i < num_months; i++){
+      result.push(months[curr_mnth]);
+      curr_mnth = (curr_mnth + 1) % 12;
+    }
+
+    return result;
+  };
+
+  showComparison = function(visitors_data, month_array){
+    new Highcharts.Chart({
+      chart: {  
+        renderTo: "comparison_chart",
+        plotBackgroundImage:'/assets/lightpaperfibers.png',
+      },
+      title: {
+        text: "Visitors Comparison"
+      },
+      xAxis: {
+        categories: month_array
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: "Number of Hits"
+        },
+      },
+      series: visitors_data
+    });
+  }
+  showComparison([]);
+  $.ajax({
+    type: "GET",
+    url: "/admin/comparison_overview",
+    async: true,
+    dataType: 'json',
+    success: function(return_data){
+      var date = parseInt(return_data.monthly_range);
+      var visitors_data = [];
+      for (var i in return_data.visitors) {
+        visitors_data.push({
+          name: i.replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, function(key, p1) {console.log('[' + key + '|' + p1 + ']');return key.toUpperCase();}),
+          //name: i.replace(/\w\S*/g, function(txt){txt.replace(/_/g, ' ');return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}),
+          data: return_data.visitors[i]
+        });
+        number_of_months = return_data.visitors[i].length;
+      }
+      var month_array = get_month_array(number_of_months, new Date());
+      showComparison(visitors_data, month_array);
+      $('.visitors_spinner').hide();
+    }
+  })
+
+  
+  $('.audience_overview_spinner').show();
+  showOverview = function(data, date){
+
+    Highcharts.setOptions({
+         colors: ['#39a5ee', '#FE0202']
+        });
+
+    new Highcharts.Chart({
+      chart: {  
+        renderTo: "details_chart",
+        plotBackgroundImage:'/assets/lightpaperfibers.png',
+      },
+      title: {
+        text: "Browsing by Day"
+      },
+      xAxis: {
+        type: "datetime"
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: "Number of Hits"
+        },
+      },
+      series: [{
+        name: "Daily Visit",
+        pointInterval: 86400000,
+        pointStart: date,
+        data: data
+      }]
+    });
+  }
+  showOverview([]);
+  $.ajax({
+    type: "GET",
+    url: "/admin/audience_overview",
+    async: true,
+    dataType: 'json',
+    success: function(return_data){
+      showOverview(return_data.daily_frequency, parseInt(return_data.daily_range))
+      $('.audience_overview_spinner').hide();
+    }
+  })
+
+  $('.browsers_spinner').show();
+  showBrowser = function(specific_data, total_data){
+    Highcharts.setOptions({
+         colors: ['#39a5ee', '#FE0202', '#50B432', '#DDDF00', '#ED561B', '#FFF263']
+        });
+
+    new Highcharts.Chart({
+      chart: {  
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        renderTo: "browsers_chart",
+      },
+      title: {
+        text: "Browsers Used"
+      },   
+      plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: false
+            },
+            showInLegend: true
+        }
+      },
+      series: [{
+        type: 'pie',
+        pointStart: total_data,
+        data: specific_data
+      }]
+    });
+  }
+  showBrowser([]);
+  $.ajax({
+    type: "GET",
+    url: "/admin/show_browsers",
+    async: true,
+    dataType: 'json',
+    success: function(return_data){
+      var sanitized_data = make_array(return_data.browsers_frequency);
+      showBrowser(sanitized_data, return_data.total_browsers)
+      $('.browsers_spinner').hide();
+    }
+  })
+
+  $('.os_spinner').show();
+  showOperatingSystem = function(specific_data, total_data){
+    Highcharts.setOptions({
+         colors: ['#ED561B', '#50B432', '#0A06FC', '#FE0202', '#DDDF00', '#FFF263']
+        });
+
+    new Highcharts.Chart({
+      chart: {  
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        renderTo: "operating_systems_chart",
+      },
+      title: {
+        text: "Operating System Used"
+      },   
+      plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: false
+            },
+            showInLegend: true
+        }
+      },
+      series: [{
+        type: 'pie',
+        pointStart: total_data,
+        data: specific_data
+      }]
+    });
+  }
+  showOperatingSystem([]);
+  $.ajax({
+    type: "GET",
+    url: "/admin/show_operating_systems",
+    async: true,
+    dataType: 'json',
+    success: function(return_data){
+      var sanitized_data = make_array(return_data.os_frequency);
+      showOperatingSystem(sanitized_data, return_data.total_os)
+      $('.os_spinner').hide();
+    }
+  })

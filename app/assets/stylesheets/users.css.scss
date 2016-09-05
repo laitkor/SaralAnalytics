@@ -1,0 +1,47 @@
+// Place all the styles related to the users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.Signup {
+  width:30em;
+  border: 1px solid #cccccc;
+  background: #FFF;
+  display: block;
+  color:#575757;
+  border-radius:10px 10px 10px 10px;
+  margin: auto;
+  margin-bottom: 7%;
+  margin-top: 5%;
+}
+
+.signup_heading {
+  display: block;
+  line-height: 20px;
+  padding-top: 1px;
+  color: #575757;
+  font-size: 18px;
+  text-shadow: 0 1px 0 #ddd;
+  background: #FFF;
+}
+
+.Signin {
+  width:30em;
+  border: 1px solid #cccccc;
+  background: #FFF;
+  display: block;
+  color:#575757;
+  border-radius:10px 10px 10px 10px;
+  margin: auto;
+  margin-bottom: 70px;
+  margin-top: 12%;
+}
+
+.signin_heading {
+display: block;
+line-height: 20px;
+padding-top: 1px;
+color: #575757;
+font-size: 18px;
+text-shadow: 0 1px 0 #ddd;
+background: #FFF;
+}

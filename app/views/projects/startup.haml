@@ -1,0 +1,169 @@
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
+    %title Start  
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application", "jquery"
+    :css
+      body {
+      }
+      .test_1 {
+        white-space: nowrap;
+        width: 100px;
+        overflow: hidden;
+      }
+  %body
+    - flash.each do |name, msg|
+      = content_tag :div, msg, :id => "flash_#{name}"
+    / top
+    .top_1
+      .main_w
+        .logo
+          -if current_user
+            %a{:href => "/admin/dashboard"}
+              %img{:alt => "kanrisha_logo", :height => "30", :src => "/assets/1.png", :width => "216", :float => "left;"}
+          -else
+            %a{:href => "/"}
+              %img{:alt => "kanrisha_logo", :height => "30", :src => "/assets/1.png", :width => "216", :float => "left"}
+        .user{:style => "line-height: 17px;"}
+          %span.label{:style=>"display: inline-block; margin-top: 8px;"}
+            -if current_user
+              Welcome, 
+              - if current_company 
+                = Company.find(Company.search_by(user_id: current_user.key)[0]).name.capitalize
+              - else
+                = Employee.find(Employee.search_by(user_id: current_user.key)[0]).name.capitalize
+              //= current_user.email
+              &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+              = link_to "Logout", log_out_path, :confirm => 'Are you sure for logging out?'
+            -else            
+              = link_to "Sign up", sign_up_path
+              &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+              = link_to "Login", log_in_path
+    %header.main_header.clr
+      .main_w
+        .left_sidebar.date_.no_border
+          = Date.today.strftime("%d/%b/%Y").upcase
+        -if current_user
+          .top_menu
+            %ul
+              %li.setting_
+                %a{:href => "#", :id => "add_project"} Create Project
+              - if current_company
+                %li.setting_
+                  = link_to 'Edit Company', edit_company_path(current_company)
+        .clr
+    .main_header_2
+      .main_w.main_work_area.no_border
+        .left_sidebar.no_border
+          .create_startup_project
+            %span{ :style => "height:70px; padding-top:7px;"}
+              %a.color_red{:href => "#"}
+                = form_for Project.new, :url=>projects_path, :method=>"POST", :html => {:id=>"project_form"} do |f| 
+                  = f.text_field :name, :placeholder=>"New project"
+                  %br/                  
+                  = f.submit "CREATE PROJECT", :class => "submit_project" , :style => "margin-top:7px; width:100%;"
+        .Main_heading
+          .pading_15
+            %h3.main_heading Let's create and set up your first project
+      .clr
+    .main_w.main_work_area{:style => "background-color:#ffffff; margin-bottom:35px;"}
+      .work_area
+        .pading_10
+          .grid_4
+            .box_header
+              %h4.box_header_title.setting_ Screencast for your help
+              .right_flot{:style => "width:150px; padding-top:5px;"}
+                .clr
+            .box_contents
+              .group{:style=> "width:666px; margin:auto;"}
+                %embed{:allowfullscreen => "true", :allowscriptaccess => "always", :height => "385", :src => "https://www.youtube.com/v/FP9zJr8Hwso", :type => "application/x-shockwave-flash", :width => "640"}/
+          .clr
+      .clr
+    %footer.footer
+      #footer_div.footer_div
+        .flot_right.pad_Right_10 (C) 2013 SaralAnalytic All Right Reserved
+
+
+
+:javascript
+
+  $(document).ready(function() { 
+    $('#flash_notice').fadeOut(5000)
+  });
+
+  $(document).ready(function() {
+
+    $(".submit_project").attr('disabled','disabled');
+    
+    $("#add_project").click(function(e){
+      e.stopPropagation();
+      $(".create_startup_project").slideToggle();
+    });
+
+    $(".create_startup_project").click(function(e){
+      if($("#project_name").val() == ''){
+        e.stopPropagation();
+        return false;
+      }
+    });
+
+    $(document).click(function(){
+      $('.create_startup_project').slideUp();
+    });
+
+    $('input[type="text"]').keyup(function() {
+      if($(this).val() != '') {
+        $(".submit_project").removeAttr('disabled');
+      }
+    });
+
+    $('input[type="text"]').click(function() {
+      if($(this).val() != '') {
+        $(".submit_project").removeAttr('disabled');
+      }
+    });
+  });
+
+
+:css
+  .work_area {
+    background: #fff;
+    display: block;
+    width: 960px;
+    float: none;
+    margin: 0 auto;
+    border: 0px;
+  }
+
+  .i_32_dashboard{
+    no-repeat scroll 9% center rgba(0, 0, 0, 0) !important;
+  }
+
+  .main_heading {
+      color: #575757;
+      display: block;
+      font-size: 18px;
+      line-height: 20px;
+      padding-left: 110px;
+      padding-top: 1px;
+      text-shadow: 0 1px 0 #DDDDDD;
+  }
+
+  
+  #flash_notice{
+    color:#fff;
+    text-align: center;
+    font-size: 15px;  padding:5px;
+    background: linear-gradient(to bottom, #0091f8 0%, #007fd9 100%);
+    width: 30%;
+    margin: 0 auto;
+    top: 0;
+    left:0;
+    right: 0;
+    position: absolute;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+  }

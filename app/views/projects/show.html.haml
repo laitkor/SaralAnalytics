@@ -1,0 +1,68 @@
+.main_header_2
+  .main_w.main_work_area.no_border
+    .Main_heading
+      .pading_15
+        %h3.main_heading.i_32_dashboard 
+          Let's get start with some analytics
+          %br/
+  .clr
+.main_w.main_work_area{:style => "background-color:#ffffff; margin-bottom:35px;"}
+  = render "layouts/side_panel"
+  .work_area
+    .pading_10
+      .grid_4{:style=>"display:none;"}
+        .successMessage Success Message
+      .grid_4
+        .box_header
+          .box_header_title
+          %span{:style=>"font-weight:bold; font-size:14px;padding:6px;position:relative;top:-3px"}
+            Welcome. It's time to get data-driven.
+          .right_flot{:style => "font-weight: bold; margin-top:3px;"}
+        .box_contents
+          Everything on Saralanalytics is based on engagement— actions users take in your application. We don't track page views by default because actions, and the metrics associated with actions, are generally more useful for understanding your users' behavior. An action can be as simple as a tweet, purchase, video play, or signup.
+
+      .clr
+      .grid_4
+        .box_header
+          %h4.box_header_title.wwIcon.i_16_tabs Install our library
+        .box_contents
+          %span.label{:style =>"font-size:14px;"}
+            We recommend using our JavaScript library. Paste this snippet just before the </head> tag of your page:
+          .snippet
+            %textarea{:readonly => "", :style=>"height:100% !important; max-height:100%; max-width:100%;", :onclick => "this.select();"} 
+              = "<script type='text/javascript'>(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = 'http://app.saralanalytics.com/browser_detail.js'; ga.onload = function(){browserDetail('#{(@queried_project || @project).key}')}; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();</script>"   
+      .clr
+      .clr
+      .grid_4
+        .box_header
+          %h4.box_header_title.wwIcon.i_16_tabs Track an event
+        .box_contents{:style =>"height:auto;"}
+          %span.label{:style =>"font-size:14px;"}
+            You can send an event from anywhere in your application:
+          .pre
+            %textarea{:readonly => "", :style=>"height:100% !important; max-height:100%; max-width:100%;", :onclick => "this.select();"}               
+              = "<script type='text/javascript'>window.onload = function(){saralanalytics('Video Play')};</script>"
+      .clr
+  .clr
+
+
+:css
+  input[type="checkbox"], [type="radio"]{
+    width:5%;
+  }
+  .pre{
+    height: 60px;
+    background: #F9F8F6;
+    padding: 14px;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+  .snippet{
+    height: 100px;
+    background: #F9F8F6;
+    padding: 14px;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+
+

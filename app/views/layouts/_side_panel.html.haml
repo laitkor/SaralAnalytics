@@ -1,0 +1,31 @@
+.left_sidebar
+  .clr.nav_heading Activity
+  %ul.nav_tab{:style => " left:0px;"}
+    %li.i_32_charts
+      %a{:href => "/admin/dashboard", :title => "Graphical Data"}
+        %span.tab_label Dashboard
+    %li.i_32_charts
+      %a{:href => "/admin/explore", :title => "Explore Data"}
+        %span.tab_label Explore
+    %li.i_32_charts
+      %a{:href => "/projects/learn", :title => "Tutorial"}
+        %span.tab_label Projects
+    .left_sidebar
+      .clr.nav_heading Engagement
+      %ul.nav_tab{:style => " left:0px;"}
+        - if current_company
+          %li.i_32_charts
+            %a{:href => "/employees", :title => "Create/View Employee"}
+              %span.tab_label Employees
+        %li.i_32_charts
+          -@get_funnel = Funnel.for_project(@project)
+          -if !(@get_funnel.empty?)
+            %a{:href => "/funnels/#{@get_funnel.first.key}", :title => "Show Action"}
+              %span.tab_label Actions
+          -else            
+            %a{:href => "/funnels/new", :title => "Create Action"}
+              %span.tab_label Actions
+        %li.i_32_charts
+          %a{:href => "/segmentations/filter", :title => "Filter Data"}
+            %span.tab_label Groups
+      .clr

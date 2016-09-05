@@ -1,0 +1,98 @@
+
+.main_header_2
+  .main_w.main_work_area.no_border
+    .Main_heading
+      .pading_15
+        %h3.main_heading.i_32_dashboard Demographic
+  .clr
+.main_w.main_work_area{:style => "background-color:#ffffff; margin-bottom:35px;"}
+  = render "layouts/side_panel"
+  .work_area
+    .pading_10
+      .grid_2
+        .box_header
+          %h4.box_header_title.wwIcon.i_16_tabs Demographics
+        .box_contents2
+          %span.label 
+            %a{:href => "#", :id=>"demograph_language", :class=>"changedemobg_"} Language
+        .box_contents2
+          %span.label 
+            %a{:href => "#", :id=>"demograph_country"} Country / Territory
+        .box_contents2
+          %span.label 
+            %a{:href => "#", :id=>"demograph_city"} City
+
+      - @browser_detail = BrowserDetail.for_project(@project, {count: true})
+      .language_block
+        .grid_3
+          .box_header
+            %h4.box_header_title.wwIcon.i_16_tabs Language
+            %h4.box_header_title_right.wwIcon.i_16_tabs Visits
+          -if !(lang_count.nil?)
+            - lang_count.each_pair do |key, value|
+              .box_contents2
+                %span.label 
+                  -if key.present?
+                    = key
+                  -else
+                    Other
+                %span.label{:style=>"float:right;"}
+                  = value
+        .grid_2
+          .box_header
+            %h4.box_header_title.wwIcon.i_16_tabs Visit Percentage
+          -if !(lang_count.nil?)
+            - lang_count.each_pair do |key, value|
+              .box_contents2
+                %span.label 
+                  = number_to_percentage(value.to_f/@browser_detail.to_f * 100, :precision => 2)
+
+      .country_block          
+        .grid_3
+          .box_header
+            %h4.box_header_title.wwIcon.i_16_tabs Country
+            %h4.box_header_title_right.wwIcon.i_16_tabs Visits
+          -if !(country_count.nil?)
+            - country_count.each_pair do |key, value|
+              .box_contents2
+                %span.label  
+                  -if(key.present? && key!="(unknown country?)")
+                    = key
+                  -else
+                    Other
+                %span.label{:style=>"float:right;"}
+                  = value
+        .grid_2
+          .box_header
+            %h4.box_header_title.wwIcon.i_16_tabs Visit Percentage
+          -if !(country_count.nil?)
+            - country_count.each_pair do |key, value|
+              .box_contents2
+                %span.label 
+                  = number_to_percentage(value.to_f/@browser_detail.to_f * 100, :precision => 2)
+        
+      .city_block          
+        .grid_3
+          .box_header
+            %h4.box_header_title.wwIcon.i_16_tabs City
+            %h4.box_header_title_right.wwIcon.i_16_tabs Visits
+          -if !(city_count.nil?)
+            - city_count.each_pair do |key, value|
+              .box_contents2
+                %span.label  
+                  -if(key.present? && key!="(unknown city?)")
+                    = key
+                  -else
+                    Other
+                %span.label{:style=>"float:right;"}
+                  = value
+        .grid_2
+          .box_header
+            %h4.box_header_title.wwIcon.i_16_tabs Visit Percentage
+          -if !(city_count.nil?)
+            - city_count.each_pair do |key, value|
+              .box_contents2
+                %span.label 
+                  = number_to_percentage(value.to_f/@browser_detail.to_f * 100, :precision => 2)
+      .clr
+  .clr

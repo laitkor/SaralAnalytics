@@ -1,0 +1,78 @@
+- pages = @funnel.pages
+= form_for(@funnel, html: { id: "funnelform" }) do |f|
+  .grid_4
+    .box_contents
+      %span.label 
+        = f.text_field :name, :placeholder => "Name your action", :required=>""
+  .clr
+  .addEvent
+    = select("title", "page_url", PageTitle.for_project(@project).collect {|pt|[pt.title, pt.page_url]}, {include_blank: "Select an event"}, :class => "input", :style => "display:none;")
+    - pages.each do |page|
+      .grid_4.pageFields
+        .box_header
+          %h4.box_header_title.wwIcon.i_16_tabs Title
+          .removePage
+            = link_to image_tag("close.png"), "#"
+        .box_contents
+          %span.label
+            = select "title", "page_url", PageTitle.for_project(@project).collect {|pt|[pt.title, pt.page_url]}, {include_blank: "Select an event", selected: page.url}, :class => "input", :id => "funnel_pages_attributes_#{pages.index page}_title", :name => "funnel[pages_attributes][#{pages.index page}][title]"
+            %input.input_url{:id => "funnel_pages_attributes_#{pages.index page}_url", :name => "funnel[pages_attributes][#{pages.index page}][url]", :readonly => "readonly", :size => "30", :style => "width:20%; display:none;", :type => "text", value: page.url}
+        %br
+  .clr
+  .clr
+  .grid_4
+    .box_contents
+      = link_to "Add Events", "#", :id => "addPage"
+      %span.label{:style=>"margin:1px;"}
+        = f.submit "Cancel", :class => "submit"
+        = f.submit "Save", :class => "submit"
+  .clr
+
+:javascript
+  $("#funnelform").validate();
+  $(document).ready(function(){
+    window.pageId = $('.pageFields').length;
+
+    $(".input").bind('change',function(){ 
+      $(this).siblings().val($(this).val());
+    });
+  
+    $('#addPage').bind('click', function(e){
+      addPage(++pageId, $('.addEvent'));
+      return false;
+    });  
+
+    var bindRemove = function(){
+      $('.removePage').bind('click',function() {
+        var i = $('.pageFields').size();
+        if( i > 2 ) {
+          console.log(this)
+          $(this).closest('.pageFields').remove();
+          i--;
+        }
+        return false;
+      }); 
+    }
+
+    bindRemove();
+  
+    var addPage = function(i, parentElem){
+      selectOptions = $('#title_page_url').eq(0).children().clone();
+      parentElem.append(
+        '<div class="grid_4 pageFields"><div class="box_header"><h4 class="box_header_title wwIcon i_16_tabs">Title</h4><a href="#"><div class="removePage"><img alt="Close" src="/assets/close.png"></div></a></div><div class="box_contents"><span class="label"><select class="input" id="funnel_pages_attributes_'+i+'_title" name="funnel[pages_attributes]['+i+'][title]" required="true" style="margin-right:20px;" option value="">Select an event</option></select><input class="input_url" id="funnel_pages_attributes_'+i+'_url" name="funnel[pages_attributes]['+i+'][url]" readonly="readonly" size="30" style="width:20%;display:none;" type="text"></span></div><br></div>'
+      );
+      $('select').last().html(selectOptions);
+      $(".input").unbind('change');
+      $(".input").bind('change',function(){ 
+        $(this).siblings().val($(this).val());
+      });
+      $('.removePage').unbind('click');
+      bindRemove();
+    };
+    var count = $('.pageFields').length;
+    while(count<2){
+      $('#addPage').click();
+      $("#addPage").bind('click');
+      count++;
+    }
+  });

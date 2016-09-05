@@ -1,0 +1,57 @@
+= javascript_include_tag 'highcharts.js', 'segmentations.js'
+.main_header_2
+  .main_w.main_work_area.no_border
+    .Main_heading
+      .pading_15
+        %h3.main_heading.i_32_dashboard 
+          Groups
+          %br/
+  .clr
+.main_w.main_work_area{:style => "background-color:#ffffff; margin-bottom:35px;"}
+  = render "layouts/side_panel"
+  .work_area
+    .pading_10
+      .grid_4
+        .box_header
+          .box_header_title
+            = image_tag("notepad_info.png") 
+          %span{:style=>"font-weight:bold; font-size:14px;padding:6px;position:relative;top:-3px"}
+            Some Handful Information
+        .box_contents
+          Groups enable you to analyze your data retroactively and perform even more complex data analysis then ever before--of course it's all in real-time. It is extremely flexible and therefore it's often tough to describe which problems it may solve because it solves so many.
+
+      .clr
+      .grid_4
+        .box_header    
+          = select("title", "page_url", PageTitle.for_project(@project).collect {|pt|[pt.title, pt.page_url]}, {selected: "selected"}, :class => "input", :style => "width:15%;")
+        .box_contents 
+          = select_tag("action", options_for_select([ "BY" ], {selected: "selected"}), :class => "input", :style => "width:8%; margin-left: 3%;")
+          .arrow
+            = image_tag "circle_arrow_right.png"
+          = select_tag("property", options_for_select([ "Browser","City","Country","Operating System"], {selected: "selected"}), :class => "input", :style => "width:17%; margin-left: 5%;")
+      .clr
+      .grid_4
+        .box_header{:style => "font-weight: bold;"}
+          = select_tag("time_period", options_for_select([["Past 7 days", 1.week.ago.to_date.strftime("%b %d, %Y") +" - "+ Date.today.strftime("%b %d, %Y")], ["Past 3 weeks", 3.weeks.ago.to_date.strftime("%b %d, %Y") +" - "+ Date.today.strftime("%b %d, %Y")], ["Past 12 months", 11.months.ago.to_date.strftime("%b %d, %Y") +" - "+ Date.today.strftime("%b %d, %Y")]]),:style=>"width:18%")
+        .box_contents 
+          %div{:id=>"details_chart", :style=>"width:100%; height:400px;"}
+          &nbsp;  
+      .clr
+      .clr
+  .clr
+
+  .segmentation_spinner
+    = image_tag "spinner.gif"
+
+
+:css
+  input[type="checkbox"], [type="radio"]{
+    width:5%;
+  }
+
+  .csv_link{
+    float: right;
+    margin-top: 2%;
+  }
+
+

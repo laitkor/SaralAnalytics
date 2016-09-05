@@ -1,0 +1,55 @@
+.main_header_2
+  .main_w.main_work_area.no_border
+    .Main_heading
+      .pading_15
+        %h3.main_heading.i_32_dashboard 
+          %div{:style=> "float:left;"}
+            Employees
+          %div{:style=> "float:right;"}
+            = button_to "Create Employee", new_employee_path, :method=> :get, :style=> "float:right"
+          %br/
+  .clr
+.main_w.main_work_area{:style => "background-color:#ffffff; margin-bottom:35px;"}
+  = render "layouts/side_panel"
+  .work_area
+    .pading_10
+      %table.grid_analytic{style: "word-wrap:break-word;table-layout: fixed;width:100%"}
+        %tr
+          %td{width: "20%"} <label> Name </label>
+          %td{width: "30%"} Email
+          %td{width: "35%"} Projects Assigned
+          %td{width: "15%"} Action
+        - if @employees
+          - @employees.each do |employee|
+            %tr
+              -if employee
+                %td{:align => "left", :valign => "top"}
+                  = employee.name if employee
+                %td{:align => "left", :valign => "top"}
+                  - emp_email=User.find(employee.user_id).email
+                  - if(emp_email)
+                    = emp_email
+                  - else
+                    NA  
+                %td{:align => "left", :valign => "top"}
+                  -if !employee.projects.empty?
+                    = employee.projects.map(&:name).join ', '
+                  -else
+                    NA
+                %td{:align => "left", :valign => "top"}
+                  = link_to "Edit", edit_employee_path(employee.key)
+
+      .clr
+  .clr
+
+
+:css
+
+  th,td{
+    text-align:center; vertical-align:middle;
+  }
+
+  input[type="checkbox"], [type="radio"]{
+    width:5%;
+  }
+

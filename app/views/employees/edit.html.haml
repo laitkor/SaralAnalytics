@@ -1,0 +1,96 @@
+.main_header_2
+  .main_w.main_work_area.no_border
+    .Main_heading
+      .pading_15
+        %h3.main_heading.i_32_dashboard Employees
+  .clr
+.main_w.main_work_area{:style => "background-color:#ffffff; margin-bottom:35px;"}
+  = render "layouts/side_panel"
+  .work_area
+    .pading_10
+      .grid_4
+        .box_header
+          %h3 Edit Employee
+      .clr
+        = form_for @employee do |f|
+          .grid_4
+            .box_contents
+              .group_ 
+                .lable_{:style=>"margin-top: 5px;"}
+                  %label.heading Employee Code
+                .input_{:style=>"width:350px;"}
+                  = f.text_field :employee_code, :placeholder => "Enter your Employee Code"
+              .clr
+          .clr
+          .grid_4
+            .box_contents
+              .group_ 
+                .lable_{:style=>"margin-top: 5px;"}
+                  %label.heading Employee Name*
+                .input_{:style=>"width:350px;"}
+                  = f.text_field :name, :placeholder => "Enter your Name*"
+              .clr
+          .clr
+
+          /######################### FIELDS OF USER MODEL ##########################/
+          /*************************************************************************/
+
+          = fields_for :user do |u|
+            .grid_4
+              .box_contents
+                .group_ 
+                  .lable_{:style=>"margin-top: 5px;"}
+                    %label.heading Email*
+                  .input_{:style=>"width:350px;"}
+                    = u.text_field :email, :placeholder => "Enter your Email*", :readonly => true
+                .clr
+            .clr
+            //.grid_4
+            //  .box_contents
+            //    .group_ 
+            //      .lable_{:style=>"margin-top: 5px;"}
+            //        %label.heading Password*
+            //      .input_{:style=>"width:350px;"}
+            //        = u.password_field :password, :placeholder => "Enter Password*" 
+            //    .clr
+            //.clr
+            //.grid_4
+            //  .box_contents
+            //    .group_ 
+            //      .lable_{:style=>"margin-top: 5px;"}
+            //        %label.heading Password Confirmation*
+            //      .input_{:style=>"width:350px;"}
+            //        = u.password_field :password_confirmation, :placeholder => "Enter Confirmation Password*"
+            //    .clr
+            //.clr
+
+          /######################### FIELDS OF EMPLOYEES PROJECTS MODEL ##########################/
+          /***************************************************************************************/
+
+          = fields_for :employees_projects do |v|
+            .grid_4
+              .box_contents
+                .group_ 
+                  .lable_{:style=>"margin-top: 5px;"}
+                    %label.heading Select Projects
+                  .input_{:style=>"width:250px;"}
+                    = v.select :project_id, options_for_select(Project.for_user(current_user).sort_by(&:created_at).reverse.collect {|pt|[pt.name, pt.key]}, @emp_projects.map { |x| x.project_id }), {}, :multiple => true, :prompt => 'Select', :required => "true", :style => "height:auto;"
+                .clr
+            .clr
+            .grid_4
+              .box_contents
+                %span.label{:style=>"margin:1px;"}
+                  = f.submit "Update Employee", :class => "submit"
+      .clr
+  .clr
+
+
+:css
+  input[type="checkbox"], [type="radio"]{
+    width:5%;
+  }
+
+  .lable_{width:250px;}
+
+
+

@@ -1,0 +1,42 @@
+%p
+  = f.label :name, "Company Name*"
+  %br/
+  = f.text_field :name, :required=>"true"
+%p
+  = f.label :address1, "Address*"
+  %br/
+  = f.text_area :address1, :class=> "signup_test_area", :required=>"true"
+%p
+  = f.label :contact_phone, "Contact Phone*"
+  %br/
+  = f.text_field :contact_phone, :required=>"true"
+
+/######################### FIELDS OF USER MODEL ##########################/
+/*************************************************************************/
+
+= fields_for :user do |u|
+  %p
+    = u.label :email, "Email*"
+    %br/
+    = u.text_field :email, disabled: (form_action == 'Update'), :type=>"email", :required=>"true"
+  - if (form_action == 'Update')
+    %p{:style=>"display:none"}
+      = u.label :password, "Password*", :disabled=>"true"
+      %br/
+      = u.password_field :password, :required=>"true"
+    %p{:style=>"display:none"}
+      = u.label :password_confirmation, "Confirm Password*"
+      %br/
+      = u.password_field :password_confirmation, :required=>"true"
+  - else
+    %p
+      = u.label :password, "Password*"
+      %br/
+      = u.password_field :password, :required=>"true"
+    %p
+      = u.label :password_confirmation, "Confirm Password*"
+      %br/
+      = u.password_field :password_confirmation, :required=>"true"
+  %p
+    %span.label{:style=>"margin:1px;"}
+      = f.submit "#{form_action} Company", :class => "submit" , :style => "margin-top:7px;"

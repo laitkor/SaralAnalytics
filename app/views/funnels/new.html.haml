@@ -1,0 +1,24 @@
+.main_header_2
+  .main_w.main_work_area.no_border
+    .Main_heading
+      .pading_15
+        %h3.main_heading.i_32_dashboard Actions
+  .clr
+.main_w.main_work_area{:style => "background-color:#ffffff; margin-bottom:35px;"}
+  = render "layouts/side_panel"
+  .work_area
+    .pading_10
+      .grid_4
+        .box_header
+          %h3 Create a new action
+      .clr
+      = render "form"
+  .clr
+
+
+:css
+  input[type="checkbox"], [type="radio"]{
+    width:5%;
+  }
+
+

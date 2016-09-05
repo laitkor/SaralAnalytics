@@ -1,0 +1,73 @@
+.browser_block
+  .grid_3
+    .box_header
+      %h4.box_header_title.wwIcon.i_16_tabs Browser
+      %h4.box_header_title_right.wwIcon.i_16_tabs Visits
+    -if !(browser_count.nil?)
+      - Hash[browser_count.sort_by { |k,v| -v }[0..2]].each_pair do |key, value|
+        .box_contents2
+          %span.label  
+            -if key.present?
+              = key
+            -else
+              Other
+          %span.label{:style=>"float:right;"}
+            = value
+  .grid_2
+    .box_header
+      %h4.box_header_title.wwIcon.i_16_tabs Visit Percentage
+    -if !(browser_count.nil?) 
+      - Hash[browser_count.sort_by { |k,v| -v }[0..2]].each_pair do |key, value|
+        .box_contents2
+          %span.label 
+            = number_to_percentage(value.to_f/desktop_users.to_f * 100, :precision => 2)
+
+.platform_block
+  .grid_3
+    .box_header
+      %h4.box_header_title.wwIcon.i_16_tabs Platform
+      %h4.box_header_title_right.wwIcon.i_16_tabs Visits
+    -if !(platform_count.nil?)
+      - Hash[platform_count.sort_by { |k,v| -v }[0..2]].each_pair do |key, value|
+        .box_contents2
+          %span.label 
+            -if key.present?
+              = key
+            -else
+              Other
+          %span.label{:style=>"float:right;"}
+            = value
+  .grid_2
+    .box_header
+      %h4.box_header_title.wwIcon.i_16_tabs Visit Percentage
+    -if !(platform_count.nil?)
+      - Hash[platform_count.sort_by { |k,v| -v }[0..2]].each_pair do |key, value|
+        .box_contents2
+          %span.label 
+            = number_to_percentage(value.to_f/desktop_users.to_f * 100, :precision => 2)
+
+.operating_system_block          
+  .grid_3
+    .box_header
+      %h4.box_header_title.wwIcon.i_16_tabs Operating System
+      %h4.box_header_title_right.wwIcon.i_16_tabs Visits
+    -if !(operating_system_count.nil?)
+      - Hash[operating_system_count.sort_by { |k,v| -v }[0..2]].each_pair do |key, value|
+        .box_contents2
+          %span.label  
+            -if key.present?
+              = key
+            -else
+              Other
+          %span.label{:style=>"float:right;"}
+            = value
+  .grid_2
+    .box_header
+      %h4.box_header_title.wwIcon.i_16_tabs Visit Percentage
+    -if !(operating_system_count.nil?)
+      - Hash[operating_system_count.sort_by { |k,v| -v }[0..2]].each_pair do |key, value|
+        .box_contents2
+          %span.label 
+            = number_to_percentage(value.to_f/desktop_users.to_f * 100, :precision => 2)
+
+

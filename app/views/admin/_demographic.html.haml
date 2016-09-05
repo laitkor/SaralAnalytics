@@ -1,0 +1,74 @@
+
+.language_block
+  .grid_3
+    .box_header
+      %h4.box_header_title.wwIcon.i_16_tabs Language
+      %h4.box_header_title_right.wwIcon.i_16_tabs Visits
+    -if !(lang_count.nil?)
+      - Hash[lang_count.sort_by { |k,v| -v }[0..2]].each_pair do |key, value|
+        .box_contents2
+          %span.label 
+            -if key.present?
+              = key
+            -else
+              Other
+          %span.label{:style=>"float:right;"}
+            = value
+  .grid_2
+    .box_header
+      %h4.box_header_title.wwIcon.i_16_tabs Visit Percentage
+    -if !(lang_count.nil?)
+      - Hash[lang_count.sort_by { |k,v| -v }[0..2]].each_pair do |key, value|
+        .box_contents2
+          %span.label 
+            = number_to_percentage(value.to_f/@browser_detail.to_f * 100, :precision => 2)
+
+.country_block          
+  .grid_3
+    .box_header
+      %h4.box_header_title.wwIcon.i_16_tabs Country
+      %h4.box_header_title_right.wwIcon.i_16_tabs Visits
+    -if !(country_count.nil?)
+      - Hash[country_count.sort_by { |k,v| -v }[0..2]].each_pair do |key, value|
+        .box_contents2
+          %span.label  
+            -if(key.present? && key!="(unknown country?)")
+              = key
+            -else
+              Other
+          %span.label{:style=>"float:right;"}
+            = value
+  .grid_2
+    .box_header
+      %h4.box_header_title.wwIcon.i_16_tabs Visit Percentage
+    -if !(country_count.nil?)
+      - Hash[country_count.sort_by { |k,v| -v }[0..2]].each_pair do |key, value|
+        .box_contents2
+          %span.label 
+            = number_to_percentage(value.to_f/@browser_detail.to_f * 100, :precision => 2)
+  
+.city_block          
+  .grid_3
+    .box_header
+      %h4.box_header_title.wwIcon.i_16_tabs City
+      %h4.box_header_title_right.wwIcon.i_16_tabs Visits
+    -if !(city_count.nil?)
+      - Hash[city_count.sort_by { |k,v| -v }[0..2]].each_pair do |key, value|
+        .box_contents2
+          %span.label  
+            -if(key.present? && key!="(unknown city?)")
+              = key
+            -else
+              Other
+          %span.label{:style=>"float:right;"}
+            = value
+  .grid_2
+    .box_header
+      %h4.box_header_title.wwIcon.i_16_tabs Visit Percentage
+    -if !(city_count.nil?)
+      - Hash[city_count.sort_by { |k,v| -v }[0..2]].each_pair do |key, value|
+        .box_contents2
+          %span.label 
+            = number_to_percentage(value.to_f/@browser_detail.to_f * 100, :precision => 2)
+
+

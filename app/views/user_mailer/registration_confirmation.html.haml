@@ -1,0 +1,30 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %h3
+      Hi
+      - if (Company.search_by(user_id: @user.key))[0]
+        = Company.find(Company.search_by(user_id: @user.key))[0].name
+      - else
+        = Employee.find(Employee.search_by(user_id: @user.key))[0].name
+      ,
+    %p
+      Your Saral Analytics account has been successfully created.
+      %br/
+      Please save the following login credentials and keep them secure.
+      %br/
+      These credentials will allow access to your administrator account which will help you manage Saral Analytics.
+      %br/
+      Administrator credentials for your records -
+      %br/
+      %br/
+      Application URL :  http://app.saralanalytics.com/projects/startup
+      %br/
+      Email : 
+      = @user.email
+      %br/
+      Password :
+      = @password 
+

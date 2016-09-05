@@ -1,0 +1,54 @@
+.main_header_2
+  .main_w.main_work_area.no_border
+    .Main_heading
+      .pading_15
+        %h3.main_heading.i_32_dashboard 
+          Projects
+          %br/
+  .clr
+.main_w.main_work_area{:style => "background-color:#ffffff; margin-bottom:35px;"}
+  = render "layouts/side_panel"
+  .work_area
+    .pading_10
+      %table.grid_analytic{style: "word-wrap:break-word;table-layout: fixed;width:100%"}
+        %tr
+          %td{width: "20%"} <label> Project Name </label>
+          %td{width: "45%"} Website Name
+          %td{width: "15%"} Total Action Items
+          %td{width: "20%"} Action
+        - if @project_list
+          - @project_list.each do |project|
+            %tr
+              -if project
+                %td{ :valign => "top"}
+                  = project.name if project
+                %td{ :valign => "top"}
+                  - total_list=BrowserHistory.search_by(project_id: project.key).first
+                  - if(total_list)
+                    = BrowserHistory.find(total_list).main_domain
+                  - else
+                    NA  
+                %td{ :valign => "top"}
+                  = @total_action_items = PageTitle.search_by(project_id: project.key).count
+                %td{ :valign => "top"}
+                  - if @total_action_items == 0
+                    = link_to "Set up now", project_path(project.key)
+                  -else
+                    = link_to "Update", project_path(project.key)
+                  &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                  - if current_company
+                    = link_to "Delete", project.key, method: :delete, :confirm => "Are you sure you want to permenantly delete this project?"
+      .clr
+  .clr
+
+
+:css
+
+  th,td{
+    text-align:center; vertical-align:middle;
+  }
+
+  input[type="checkbox"], [type="radio"]{
+    width:5%;
+  }
+

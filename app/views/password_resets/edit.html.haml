@@ -1,0 +1,20 @@
+.main_w.main_work_area.no_border
+  .Signin
+    .pading_15
+      %h3.signin_heading Change Password
+      = form_for @user, :method => :put, :url => password_reset_path(params[:id]) do |f|
+        %p
+          = f.label :password
+          = f.password_field :password
+        %p
+          = f.label :password_confirmation
+          = f.password_field :password_confirmation
+        %p
+          %span.label{:style=>"margin:1px;"}
+            = f.submit "Update Password"
+
+:css
+
+  .select_web{
+    display: none;
+  }

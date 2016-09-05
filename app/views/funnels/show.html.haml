@@ -1,0 +1,35 @@
+= javascript_include_tag 'highcharts.js', "funnels.js"
+.main_header_2
+  .main_w.main_work_area.no_border
+    .Main_heading
+      .pading_15
+        %h3.main_heading.i_32_dashboard Actions 
+  .clr
+.main_w.main_work_area{:style => "background-color:#ffffff; margin-bottom:35px;"}
+  = render "layouts/side_panel"
+  .work_area
+    .pading_10
+      .grid_4
+        .box_header
+          = select_tag "Funnel", options_for_select(Funnel.for_project(@project.key).map{|fn|[fn.name, fn.key]}, @funnel.key), :label => false, :style => "width:20%;", :onchange => "funnel_name()"
+          = link_to "<button>Edit Action</button>".html_safe, edit_funnel_path(@funnel)
+          = link_to "<button>Create New</button>".html_safe, new_funnel_path
+          = link_to "<button>Delete</button>".html_safe, @funnel, method: :delete, :confirm => "Are you sure you want to permenantly delete this funnel?", id: "deleteFunnel", :style=>"float:right;"
+        .clr
+        .box_contents{:style=>"padding-bottom: 415px;"}
+          %div{:id=>"funnels_chart", :style=>"width:100%; height:8%;"}
+      .clr
+  .clr
+.funnel_spinner
+  = image_tag "spinner.gif"
+
+
+
+:javascript
+  function funnel_name(){
+    var url = "/funnels/"+$('#Funnel').val()
+    if (url) {
+      window.location.replace(url);
+    }
+  }
+

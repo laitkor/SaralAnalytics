@@ -1,0 +1,13 @@
+.main_w.main_work_area.no_border
+  .Signup
+    .pading_15
+      %h3.signup_heading Edit Company Details  
+      %p      
+      = form_for(@company, html: {id: "editsignupform"})do |f|
+        = render 'form', f: f, form_action: 'Update'
+:css
+
+  .select_web{
+    display: none;
+  }
+  

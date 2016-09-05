@@ -1,0 +1,123 @@
+
+.main_header_2
+  .main_w.main_work_area.no_border
+    .Main_heading
+      .pading_15
+        %h3.main_heading.i_32_dashboard Mobile
+  .clr
+.main_w.main_work_area{:style => "background-color:#ffffff; margin-bottom:35px;"}
+  = render "layouts/side_panel"
+  .work_area
+    .pading_10
+      .grid_2
+        .box_header
+          %h4.box_header_title.wwIcon.i_16_tabs Mobile
+        .box_contents2
+          %span.label
+            %a{:href => "#", :id=>"mobile_device", :class=>"changemobbg_"} Device Type
+        .box_contents2
+          %span.label
+            %a{:href => "#", :id=>"mobile_browser"} Browser
+        .box_contents2
+          %span.label
+            %a{:href => "#", :id=>"mobile_platform"} Platform
+        .box_contents2
+          %span.label
+            %a{:href => "#", :id=>"mobile_operating_system"} Operating System
+      .mobile_device_block
+        .grid_3
+          .box_header
+            %h4.box_header_title.wwIcon.i_16_tabs Device Type
+            %h4.box_header_title_right.wwIcon.i_16_tabs Visits
+          -if !(mobile_device_type_count.nil?)
+            - Hash[mobile_device_type_count.sort_by { |k,v| -v }[0..2]].each_pair do |key, value|
+              .box_contents2
+                %span.label 
+                  -if key.present?
+                    = key
+                  -else
+                    Other
+                %span.label{:style=>"float:right;"}
+                  = value
+        .grid_2
+          .box_header
+            %h4.box_header_title.wwIcon.i_16_tabs Visit Percentage
+          -if !(mobile_device_type_count.nil?)
+            - Hash[mobile_device_type_count.sort_by { |k,v| -v }[0..2]].each_pair do |key, value|
+              .box_contents2
+                %span.label 
+                  = number_to_percentage(value.to_f/mobile_users.to_f * 100, :precision => 2)
+
+      .mobile_browser_block
+        .grid_3
+          .box_header
+            %h4.box_header_title.wwIcon.i_16_tabs Browser
+            %h4.box_header_title_right.wwIcon.i_16_tabs Visits
+          -if !(mobile_browser_count.nil?)
+            - Hash[mobile_browser_count.sort_by { |k,v| -v }[0..2]].each_pair do |key, value|
+              .box_contents2
+                %span.label 
+                  -if key.present?
+                    = key
+                  -else
+                    Other
+                %span.label{:style=>"float:right;"}
+                  = value
+        .grid_2
+          .box_header
+            %h4.box_header_title.wwIcon.i_16_tabs Visit Percentage
+          -if !(mobile_browser_count.nil?)
+            - Hash[mobile_browser_count.sort_by { |k,v| -v }[0..2]].each_pair do |key, value|
+              .box_contents2
+                %span.label 
+                  = number_to_percentage(value.to_f/mobile_users.to_f * 100, :precision => 2)
+
+      .mobile_platform_block
+        .grid_3
+          .box_header
+            %h4.box_header_title.wwIcon.i_16_tabs Platform
+            %h4.box_header_title_right.wwIcon.i_16_tabs Visits
+          -if !(mobile_platform_count.nil?)
+            - Hash[mobile_platform_count.sort_by { |k,v| -v }[0..2]].each_pair do |key, value|
+              .box_contents2
+                %span.label 
+                  -if key.present?
+                    = key
+                  -else
+                    Other
+                %span.label{:style=>"float:right;"}
+                  = value
+        .grid_2
+          .box_header
+            %h4.box_header_title.wwIcon.i_16_tabs Visit Percentage
+          -if !(mobile_platform_count.nil?)
+            - Hash[mobile_platform_count.sort_by { |k,v| -v }[0..2]].each_pair do |key, value|
+              .box_contents2
+                %span.label 
+                  = number_to_percentage(value.to_f/mobile_users.to_f * 100, :precision => 2)
+
+      .mobile_operating_system_block          
+        .grid_3
+          .box_header
+            %h4.box_header_title.wwIcon.i_16_tabs Operating System
+            %h4.box_header_title_right.wwIcon.i_16_tabs Visits
+          -if !(mobile_operating_system_count.nil?)
+            - Hash[mobile_operating_system_count.sort_by { |k,v| -v }[0..2]].each_pair do |key, value|
+              .box_contents2
+                %span.label 
+                  -if key.present?
+                    = key
+                  -else
+                    Other
+                %span.label{:style=>"float:right;"}
+                  = value
+        .grid_2
+          .box_header
+            %h4.box_header_title.wwIcon.i_16_tabs Visit Percentage
+          -if !(mobile_operating_system_count.nil?)
+            - Hash[mobile_operating_system_count.sort_by { |k,v| -v }[0..2]].each_pair do |key, value|
+              .box_contents2
+                %span.label 
+                  = number_to_percentage(value.to_f/mobile_users.to_f * 100, :precision => 2)
+      .clr
+  .clr

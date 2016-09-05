@@ -1,0 +1,19 @@
+.main_w.main_work_area.no_border
+  .Signin
+    .pading_15
+      %h3.signin_heading Enter Email
+      = form_tag password_resets_path, :id=>"pwdresetform", :method => :post do
+        %p
+          = label_tag :email
+          = text_field_tag :email, params[:email], :required=>"", :type=>"email"
+        %p
+          %span.label{:style=>"margin:1px;"}
+            = submit_tag "Reset Password"
+
+:css
+  .select_web{
+    display: none;
+  }
+
+:javascript
+  $("#pwdresetform").validate();

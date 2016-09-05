@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  ip_address: MyString
+  os_name: MyString
+  browser: MyString
+  main_domain: MyString
+  domain: MyString
+  item_type: MyString
+  device: MyString
+  device_type: MyString
+  client: MyString
+
+two:
+  ip_address: MyString
+  os_name: MyString
+  browser: MyString
+  main_domain: MyString
+  domain: MyString
+  item_type: MyString
+  device: MyString
+  device_type: MyString
+  client: MyString

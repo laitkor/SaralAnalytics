@@ -1,0 +1,66 @@
+// Place all the styles related to the segmentations controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.segmentation_spinner{
+  position: absolute;
+  height: 3%;
+  width: 3%;
+  left: 56%;
+  top: 67%;
+}
+
+.arrow{
+  position: absolute;
+  height: 15%;
+  width: 2%;
+  left: 14%;
+  top: 64%;
+}
+
+.db_grid_2 {
+  height: auto;
+  border: #fff 1px solid;
+  border-radius: 2px;
+}
+.db_grid_2 th {
+  padding: 10px 5px;
+  border-bottom: #e1e7e7 1px solid;
+  font-size: 14px;
+  text-align: left;
+  color: #575757;
+  font-family: 'Exo 2', sans-serif;
+  background-color: #FFF;
+  border-left: #e1e7e7 1px solid;
+  padding-top: 0px;
+}
+.db_grid_2 th:first-child {
+  border-left: #fff 1px solid;
+}
+.db_grid_2 td {
+  padding: 7px 5px;
+  border-bottom: #e1e7e7 1px solid;
+  font-size: 14px;
+  border-left: #e1e7e7 1px solid;
+}
+.db_grid_2 td:first-child {
+  border-left: #e1e7e7 0px solid;
+}
+
+
+.db_grid_2 tr:nth-child(even) {
+  background: #fff
+}
+.db_grid_2 tr:nth-child(odd) {
+  background: #fafdfe;
+}
+
+.db_grid_2 tr:hover {
+  background-color: #ecf3f4;
+  color: #666;
+}
+
+.db_grid_colom1 td:first-child {
+  font-weight:bold;
+}

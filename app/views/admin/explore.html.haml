@@ -1,0 +1,72 @@
+= javascript_include_tag 'highcharts.js'
+.main_header_2
+  .main_w.main_work_area.no_border
+    .Main_heading
+      .pading_15
+        %h3.main_heading.i_32_dashboard Explore
+  .clr
+.main_w.main_work_area{:style => "background-color:#ffffff; margin-bottom:35px;"}
+  = render "layouts/side_panel"
+  .work_area
+    .pading_10
+      .clr
+      .grid_2
+        .box_header
+          %h4.box_header_title.wwIcon.i_16_tabs Demographics
+        .box_contents2
+          %span.label 
+            %a{:href => "#", :id=>"demograph_language", :class=>"changedemobg_"} Language
+        .box_contents2
+          %span.label 
+            %a{:href => "#", :id=>"demograph_country"} Country / Territory
+        .box_contents2
+          %span.label 
+            %a{:href => "#", :id=>"demograph_city"} City
+      = render "admin/demographic"
+      .grid_4{:style=>"text-align:center;"}
+        = link_to "<button>View All</button>".html_safe, demographic_admin_index_path, :style=>"position:inherit;"
+      .clr
+      .grid_2
+        .box_header
+          %h4.box_header_title.wwIcon.i_16_tabs Desktop
+        .box_contents2
+          %span.label 
+            %a{:href => "#", :id=>"system_browser", :class=>"changesysbg_"} Browser
+        .box_contents2
+          %span.label
+            %a{:href => "#", :id=>"system_platform"} Platform
+        .box_contents2
+          %span.label
+            %a{:href => "#", :id=>"system_operating_system"} Operating System
+      = render "admin/system"
+      .grid_4{:style=>"text-align:center;"}
+        = link_to "<button>View All</button>".html_safe, desktop_admin_index_path, :style=>"position:inherit;"
+      .clr
+      .grid_2
+        .box_header
+          %h4.box_header_title.wwIcon.i_16_tabs Mobile
+        .box_contents2
+          %span.label
+            %a{:href => "#", :id=>"mobile_device", :class=>"changemobbg_"} Device Type
+        .box_contents2
+          %span.label
+            %a{:href => "#", :id=>"mobile_browser"} Browser
+        .box_contents2
+          %span.label
+            %a{:href => "#", :id=>"mobile_platform"} Platform
+        .box_contents2
+          %span.label
+            %a{:href => "#", :id=>"mobile_operating_system"} Operating System
+      = render "admin/mobile"
+      .grid_4{:style=>"text-align:center;"}
+        = link_to "<button>View All</button>".html_safe, mobile_admin_index_path, :style=>"position:inherit;"
+      .clr
+  .clr
+
+
+
+:css
+  input[type="checkbox"], [type="radio"]{
+    width:5%;
+  }
+  

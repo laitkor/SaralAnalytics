@@ -1,0 +1,20 @@
+!!!
+%html
+  %head
+    %title Saralanalytics
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body
+    - flash.each do |name, msg|
+      = content_tag :div, msg, :id => "flash_#{name}"
+      
+    = render "layouts/header"
+    = yield
+    = render "layouts/footer"
+    
+
+:javascript
+  $(document).ready(function() { 
+    $('#flash_notice').fadeOut(5000)
+  });

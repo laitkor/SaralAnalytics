@@ -1,0 +1,165 @@
+%h2 Browser Detail
+
+%b
+  Browser Name:
+= browser_name
+%br/
+
+%b
+  Browser Version:
+= browser_version
+%br/
+
+%b
+  Time Zone:
+= time_zone
+%br/
+
+%b
+  Language:
+= browser_language
+%br/
+
+%b
+  Height: 
+%span.height
+%br/
+
+%b
+  Width:
+%span.width
+%br/
+
+%b
+  Device: 
+= device
+%br/
+
+%b
+  Device Type:
+= device_type
+%br/
+
+%b
+  Screen Color:
+%span.screen_color
+
+%br/
+
+%b
+  Screen Resolution:  
+%span.screen_resolution 
+%br/
+
+%b
+  Accept Headers:  
+= accept_headers
+%br/
+
+%b
+  Server:  
+= server
+%br/
+
+%b
+  Cookie Enabled:  
+%span.cookie_enabled
+%br/
+
+%b
+  Platform:  
+= platform
+%br/
+
+%b
+  OS Name:
+- if device == "Desktop"
+  = user_agent_os
+- else
+  = mobile_os
+%br/
+
+%b
+  Fonts Installed:
+%span.fonts_installed
+%br/
+
+%b
+  Java Enabled: 
+%span.java_enabled
+%br/
+
+%b
+  Latitude: 
+= latitude
+%br/
+
+%b
+  Longitude: 
+= longitude
+%br/
+
+%b
+  City:
+= city
+%br/
+
+%b
+  Country: 
+= country
+%br/
+
+
+%b
+  Accept Encoding: 
+= accept_encoding
+%br/
+
+%b
+  Content Type: 
+= content_type  
+%br/
+
+
+%b
+  Full Domain: 
+= full_domain
+
+%br/
+
+%b
+  Http Referer: 
+= http_referer
+%br/
+
+
+
+%b
+  Flash Installed: 
+%span.flash_installed
+%br/
+
+%b
+  Plugins Installed:  
+%span.plugins_installed
+%br/
+
+%b
+  HTML Audio Support:  
+%span.html_audio_support
+%br/
+
+%b
+  HTML Video Support: 
+%span.html_video_support 
+%br/
+
+%b
+  Canvas Support: 
+%span.canvas_support 
+%br/
+
+
+
+
+

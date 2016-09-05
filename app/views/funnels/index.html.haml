@@ -1,0 +1,39 @@
+.main_header_2
+  .main_w.main_work_area.no_border
+    .Main_heading
+      .pading_15
+        %h3.main_heading.i_32_dashboard Actions
+  .clr
+.main_w.main_work_area{:style => "background-color:#ffffff; margin-bottom:35px;"}
+  = render "layouts/side_panel"
+  .work_area
+    .pading_10
+      .grid_4
+        .box_header
+          = select_tag "Funnel", options_for_select(Funnel.list.map{|fn|[fn.name, fn.key]}, @funnel.key), :label => false, :class=>"input", :onchange => "funnel_name()"
+          .right
+            = link_to image_tag("delete.png"), @funnel, method: :delete, :style=>"float:right", :confirm => "Are you sure you want to permenantly delete this funnel?"
+            = link_to image_tag("add.png"), new_funnel_path, :style=>"float:right"
+            = link_to image_tag("pen.png"), edit_funnel_path(@funnel), :style=>"float:right"
+        .clr
+        .grid_4
+          .box_contents
+            %span.label 
+              = @funnel.first_page
+        .clr
+        .grid_4
+          .box_contents
+            %span.label 
+              = @funnel.second_page 
+      .clr
+  .clr
+
+
+
+:javascript
+  function funnel_name(){
+    var url = "/funnels/"+$('select').val()
+    if (url) {
+      window.location.replace(url);
+    }
+  }

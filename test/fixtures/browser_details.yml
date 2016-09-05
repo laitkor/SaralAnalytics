@@ -1,0 +1,83 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  browser_history_id: MyString
+  browser_version: MyString
+  time_zone: MyString
+  language: MyString
+  height: MyString
+  width: MyString
+  user_agent: MyString
+  screen_color: MyString
+  screen: 
+  accept_headers: MyString
+  server: MyString
+  cookie_enabled: MyString
+  platform: MyString
+  fonts_installed: MyString
+  java_enabled: MyString
+  latitude: MyString
+  longitude: MyString
+  accept_encoding: MyString
+  content_type: MyString
+  device: MyString
+  major_version: MyString
+  session_storage: MyString
+  browser_vendor: MyString
+  finger_print: MyString
+  http_referer: MyString
+  country: MyString
+  city: MyString
+  region: MyString
+  flash_installed: MyString
+  plugins_installed: MyString
+  js_version: MyString
+  product_sub: MyString
+  html_audio_support: MyString
+  html_video_support: MyString
+  canvas_support: MyString
+  powered_by: MyString
+  iframe_name: MyString
+  config_set_id: MyString
+  last_updated: MyString
+
+two:
+  browser_history_id: MyString
+  browser_version: MyString
+  time_zone: MyString
+  language: MyString
+  height: MyString
+  width: MyString
+  user_agent: MyString
+  screen_color: MyString
+  screen: 
+  accept_headers: MyString
+  server: MyString
+  cookie_enabled: MyString
+  platform: MyString
+  fonts_installed: MyString
+  java_enabled: MyString
+  latitude: MyString
+  longitude: MyString
+  accept_encoding: MyString
+  content_type: MyString
+  device: MyString
+  major_version: MyString
+  session_storage: MyString
+  browser_vendor: MyString
+  finger_print: MyString
+  http_referer: MyString
+  country: MyString
+  city: MyString
+  region: MyString
+  flash_installed: MyString
+  plugins_installed: MyString
+  js_version: MyString
+  product_sub: MyString
+  html_audio_support: MyString
+  html_video_support: MyString
+  canvas_support: MyString
+  powered_by: MyString
+  iframe_name: MyString
+  config_set_id: MyString
+  last_updated: MyString

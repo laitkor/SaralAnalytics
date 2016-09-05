@@ -1,0 +1,53 @@
+.top_1
+  .main_w
+    .logo
+      -if current_user
+        %a{:href => "/admin/dashboard"}
+          %img{:alt => "kanrisha_logo", :height => "30", :src => "/assets/1.png", :width => "216", :float => "left;"}
+      -else
+        %a{:href => "/"}
+          %img{:alt => "kanrisha_logo", :height => "30", :src => "/assets/1.png", :width => "216", :float => "left"}
+    .user
+      %span.label{:style=>"display: inline-block; margin-top: 8px;"}
+        -if current_user
+          Welcome, 
+          - if current_company
+            = Company.find(Company.search_by(user_id: current_user.key)[0]).name.capitalize
+          - else
+            = Employee.find(Employee.search_by(user_id: current_user.key)[0]).name.capitalize
+          &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+          = link_to "Logout", log_out_path, :confirm => 'Are you sure for logging out?'
+        -else
+          = link_to "Sign up", sign_up_path
+          &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+          = link_to "Login", log_in_path
+%header.main_header.clr
+  .main_w
+    .left_sidebar.date_.no_border 
+      = Date.today.strftime("%d/%b/%Y").upcase
+    -if current_user
+      .top_menu
+        %ul
+          %li.setting_
+            %a{:href => "#", :id => "add_project", :class => "newproject", :title => "Create new project"} Create Project
+          - if current_company
+            %li.setting_
+              = link_to 'Edit Company', edit_company_path(current_company), :title=>"Edit company"
+      .clr
+.main_header_2
+  .main_w.main_work_area.no_border
+    .left_sidebar.no_border
+      .create_project
+        %span{ :style => "height:70px; padding-top:7px;"}
+          %a.color_red{:href => "#"}
+            = form_for Project.new, :url=>projects_path, :method=>"POST", :html => {:id=>"project_form"} do |f| 
+              = f.text_field :name, :placeholder=>"New project"
+              %br/                  
+              = f.submit "CREATE PROJECT", :class => "submit_project" , :style => "margin-top:7px; width:100%;"
+
+      .select_web
+        %span.test_1{:style => "text-overflow:ellipsis; display:block; text-transform:capitalize;"}
+          -if !(@project.nil?)
+            = select "name", "key", Project.for_user(current_user).sort_by(&:created_at).reverse.collect {|pt|[pt.name, pt.key]}, {selected: @project.key}, :onchange => "project_name()"
+          -else
+            = select "name", "key", Project.for_user(current_user).sort_by(&:created_at).reverse.collect {|pt|[pt.name, pt.key]}, {selected: Project.first.try(:key)}, :onchange => "project_name()"
